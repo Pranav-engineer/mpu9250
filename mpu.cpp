@@ -17,3 +17,26 @@
 
 
 #include "mpu.hpp"
+
+#define MPU_DEFAULT_PORT I2C_NUM_0
+#define MPU_FREQUENCY (100 * 1000)
+
+mpu::mpu( uint16_t address, gpio_num_t sdaNum , gpio_num_t sclNum){
+
+    i2c_config_t conf = {
+        .mode = I2C_MODE_MASTER,
+        .sda_io_num = sdaNum,         // select GPIO specific to your project
+        .scl_io_num = sclNum,         // select GPIO specific to your project
+        .sda_pullup_en = GPIO_PULLUP_ENABLE,
+        .scl_pullup_en = GPIO_PULLUP_ENABLE,
+        .master = {.clk_speed = MPU_FREQUENCY },  // select frequency specific to your project
+        .clk_flags = 0,                          // you can use I2C_SCLK_SRC_FLAG_* flags to choose i2c source clock here
+    };
+
+    i2c_param_config(MPU_DEFAULT_PORT, &conf);
+    i2c_driver_install(MPU_DEFAULT_PORT, I2C_MODE_MASTER, 0, 0, 0);
+
+};
+
+
+

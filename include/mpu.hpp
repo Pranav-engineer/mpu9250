@@ -19,7 +19,22 @@
 #ifndef MPU_HPP
 #define MPU_HPP
 
+#include <driver/gpio.h>
+#include <driver/i2c.h>
+
+#include "registerMap.hpp"
+
+#define DEFAULT_SDA_NUM GPIO_NUM_33
+#define DEFAULT_SCL_NUM GPIO_NUM_32
+
+
+
 class mpu {
+
+public:
+
+    mpu(uint16_t address = MPU9250_ADDRESS, gpio_num_t sdaNum = DEFAULT_SDA_NUM, gpio_num_t sclNum = DEFAULT_SCL_NUM);
+
 
 private:
 
